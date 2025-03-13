@@ -1,1 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Noize MC - Не все дома</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+				background-color: #1a1a1a;
+				font-family: Arial, sans-serif;
+				color: #fff;
+			}
+			.container {
+				text-align: center;
+				background: rgba(0, 0, 0, 0.7);
+				padding: 40px;
+				border-radius: 10px;
+			}
+			h1 {
+				font-size: 2.5em;
+				margin-bottom: 20px;
+			}
+			#countdown {
+				display: flex;
+				justify-content: center;
+				gap: 20px;
+				font-size: 2em;
+			}
+			.time-block {
+				display: flex;
+				flex-direction: column;
+			}
+			.time-block span:first-child {
+				font-size: 1.5em;
+				font-weight: bold;
+			}
+			.time-block span:last-child {
+				font-size: 0.8em;
+				color: #ccc;
+			}
+			#album-image {
+				max-width: 300px;
+				margin-top: 30px;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Noize MC - "Не все дома"</h1>
+			<div id="countdown">
+				<div class="time-block">
+					<span id="hours">0</span>
+					<span>Часов</span>
+				</div>
+				<div class="time-block">
+					<span id="minutes">0</span>
+					<span>Минут</span>
+				</div>
+				<div class="time-block">
+					<span id="seconds">0</span>
+					<span>Секунд</span>
+				</div>
+			</div>
+			<!-- Вставь путь к своей фотографии в атрибут src -->
+			<img id="album-image" src="photo.jpeg" alt="Обложка альбома" />
+		</div>
 
+		<script>
+			// Устанавливаем дату выхода альбома: 14 марта 2025, 00:00 по МСК
+			const releaseDate = new Date('2025-03-14T00:00:00+03:00')
+
+			function updateCountdown() {
+				const now = new Date()
+				const timeDifference = releaseDate - now
+
+				if (timeDifference <= 0) {
+					document.getElementById('countdown').innerHTML = 'Альбом уже вышел!'
+					return
+				}
+
+				// const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+				const hours = Math.floor(
+					(timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+				)
+				const minutes = Math.floor(
+					(timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+				)
+				const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000)
+
+				// document.getElementById('days').textContent = days
+				document.getElementById('hours').textContent = hours
+				document.getElementById('minutes').textContent = minutes
+				document.getElementById('seconds').textContent = seconds
+			}
+
+			// Обновляем таймер каждую секунду
+			setInterval(updateCountdown, 1000)
+			// Запускаем сразу при загрузке страницы
+			updateCountdown()
+		</script>
+	</body>
+</html>
